@@ -1,18 +1,14 @@
-package apis
+package controller
 
 import (
-	"clubapis/schemas"
+	"clubapis/db"
+	schemas "clubapis/schema"
 	"encoding/json"
 	"log"
 	"net/http"
-
-	"github.com/supabase-community/supabase-go"
 )
 
-// var clubnre=
-var supaClient *supabase.Client
-
-func createClubHandler(w http.ResponseWriter, r *http.Request) {
+func CreateClubHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var club schemas.Club
@@ -30,7 +26,7 @@ func createClubHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// ✅ No context needed in Execute() in v0.10+
-	_, _, err := supaClient.From("clubs").Insert(
+	_, _, err := db.SupaClient.From("clubs").Insert(
 		map[string]interface{}{
 			"club_name":   club.ClubName,
 			"contact":     club.Contact,
