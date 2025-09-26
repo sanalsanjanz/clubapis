@@ -54,6 +54,39 @@ func CreateClubHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func GetClubsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Query all rows from "clubs"
+	data, _, err := db.SupaClient.
+		From("clubs").
+		Select("*", "", false).
+		Execute()
+
+	if err != nil {
+		log.Printf("Supabase error: %v", err)
+		sendJSON(w, http.StatusInternalServerError, schemas.Response{
+			Error: "Failed to fetch clubs",
+		})
+		return
+	}
+
+	// Unmarshal JSON into slice of Club
+	var clubs []schemas.Club
+	if err := json.Unmarshal(data, &clubs); err != nil {
+		log.Printf("Unmarshal error: %v", err)
+		sendJSON(w, http.StatusInternalServerError, schemas.Response{
+			Error: "Failed to parse clubs data",
+		})
+		return
+	}
+
+	sendJSON(w, http.StatusOK, schemas.Response{
+		Message: "Clubs fetched successfully",
+		Data:    clubs,
+	})
+}
+
 func sendJSON(w http.ResponseWriter, status int, payload interface{}) {
 	w.WriteHeader(status)
 	if err := json.NewEncoder(w).Encode(payload); err != nil {
