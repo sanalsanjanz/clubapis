@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 	"os"
@@ -12,22 +11,6 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/supabase-community/supabase-go"
 )
-
-type Club struct {
-	ClubName   string  `json:"club_name"`
-	Contact    string  `json:"contact"`
-	Location   string  `json:"location"`
-	MonthlyFee float64 `json:"monthly_fee"`
-	RegNo      string  `json:"reg_no"`
-}
-
-type Response struct {
-	Message string      `json:"message"`
-	Data    interface{} `json:"data,omitempty"`
-	Error   string      `json:"error,omitempty"`
-}
-
-var supaClient *supabase.Client
 
 func init() {
 	// Load .env file (only during local development)
@@ -65,9 +48,9 @@ func main() {
 		MaxAge:         300,
 	}))
 
-	r.Post("/api/create-club", createClubHandler)
+	r.Post("/api/create-club", apis.createClubHandler)
 	http.ListenAndServe(":8080", r)
-}
+} /*
 
 func createClubHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -122,3 +105,4 @@ func sendJSON(w http.ResponseWriter, status int, payload interface{}) {
 		http.Error(w, "Server error", http.StatusInternalServerError)
 	}
 }
+*/

@@ -1,4 +1,4 @@
-module main
+module clubapis
 
 go 1.25.1
 
