@@ -1,0 +1,22 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output directory
+bin/
+
+# Go directories
+pkg/
+bin/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
