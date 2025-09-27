@@ -27,5 +27,6 @@ func main() {
 
 	r.Post("/api/create-club", controller.CreateClubHandler)
 	r.Get("/api/get-all-clubs", controller.GetClubsHandler)
+	r.Post("/api/club-login", controller.LoginClubHandler)
 	http.ListenAndServe(":8080", r)
 }

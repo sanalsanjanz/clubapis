@@ -6,4 +6,5 @@ type Club struct {
 	Location   string  `json:"location"`
 	MonthlyFee float64 `json:"monthly_fee"`
 	RegNo      string  `json:"reg_no"`
+	Password   string  `json:"password"`
 }
